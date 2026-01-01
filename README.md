@@ -28,8 +28,8 @@ Prédire si un patient est infecté par le COVID-19 sur la base des données cli
 
 ```
 covid-detection/
-├── README.md                   # Documentation (EN)
-├── README_FR.md               # Documentation (FR)
+├── README.md                   # Documentation
+├── LICENSE                     # Licence MIT
 ├── requirements.txt            # Dépendances Python
 ├── setup.py                   # Installation du package
 ├── .gitignore                 # Règles Git
@@ -41,6 +41,7 @@ covid-detection/
 │   └── results/               # Graphiques et résultats
 │
 ├── notebooks/
+│   ├── 00_quick_start.ipynb
 │   ├── 01_exploratory_data_analysis.ipynb
 │   └── 02_modeling.ipynb
 │
@@ -63,10 +64,15 @@ covid-detection/
 │
 ├── scripts/                   # Scripts exécutables
 │   ├── train_model.py         # Pipeline d'entraînement
-│   └── predict.py             # Script de prédiction
+│   ├── predict.py             # Script de prédiction
+│   └── check_installation.py  # Vérification installation
 │
-└── tests/                     # Tests unitaires
-    └── test_preprocessing.py
+├── tests/                     # Tests unitaires
+│   └── test_preprocessing.py
+│
+└── docs/                      # Documentation
+    ├── API.md                 # Référence API
+    └── CONTRIBUTING.md        # Guide de contribution
 ```
 
 ## Installation
