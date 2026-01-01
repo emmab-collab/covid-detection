@@ -2,6 +2,7 @@
 Feature engineering functions for COVID-19 detection.
 Creates new features from existing ones to improve model performance.
 """
+from __future__ import annotations
 
 import pandas as pd
 import numpy as np

@@ -2,6 +2,7 @@
 Visualization functions for exploratory data analysis.
 Creates comprehensive plots for understanding the data.
 """
+from __future__ import annotations
 
 import matplotlib.pyplot as plt
 import seaborn as sns

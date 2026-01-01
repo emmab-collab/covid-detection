@@ -2,6 +2,7 @@
 Model training and optimization functions.
 Handles model creation, hyperparameter tuning, and training.
 """
+from __future__ import annotations
 
 import numpy as np
 import pandas as pd
@@ -13,7 +14,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.preprocessing import PolynomialFeatures, StandardScaler
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-from typing import Dict, Any
+from typing import Dict, Any, Tuple, Optional
 import joblib
 
 from ..config import (

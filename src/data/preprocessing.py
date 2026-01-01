@@ -2,6 +2,7 @@
 Data preprocessing functions for COVID-19 detection.
 Handles data loading, cleaning, encoding, and imputation.
 """
+from __future__ import annotations
 
 import pandas as pd
 import numpy as np
