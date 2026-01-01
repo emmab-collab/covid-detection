@@ -1,131 +1,134 @@
-# COVID-19 Detection from Clinical Data
+# Détection COVID-19 à partir de Données Cliniques
 
-A machine learning project to predict COVID-19 infection from clinical and blood test data.
+Un projet de machine learning pour prédire l'infection au COVID-19 à partir de données cliniques et d'analyses sanguines.
 
-## Project Objective
+[English version](README.md) | **Version française**
 
-Predict whether a patient is infected with COVID-19 based on available clinical data, achieving:
+##  Objectif du Projet
+
+Prédire si un patient est infecté par le COVID-19 sur la base des données cliniques disponibles, en atteignant :
 - **F1 Score ≥ 0.5**
 - **Recall ≥ 0.7**
 
-**Current Performance:**
-- **F1 Score: 0.56**
-- **Recall: 0.81**
+**Performance actuelle :**
+- **F1 Score : 0.56**
+- **Recall : 0.81**
 
-## Dataset
+##  Jeu de Données
 
-- **Total samples:** 5,644
-- **Features:** 111 (originally)
-- **Target:** SARS-Cov-2 exam result (positive/negative)
-- **Class distribution:** 10% positive, 90% negative (imbalanced)
+- **Échantillons totaux :** 5,644
+- **Caractéristiques :** 111 (initialement)
+- **Cible :** Résultat de l'examen SARS-Cov-2 (positif/négatif)
+- **Distribution des classes :** 10% positif, 90% négatif (déséquilibré)
 
-### Feature Groups
-- **Blood tests:** Hemoglobin, Platelets, Leukocytes, Lymphocytes, Monocytes, etc.
-- **Viral tests:** Influenza A/B, Rhinovirus, Coronavirus, etc.
-- **Demographics:** Patient age quantile
+### Groupes de Caractéristiques
+- **Analyses sanguines :** Hémoglobine, Plaquettes, Leucocytes, Lymphocytes, Monocytes, etc.
+- **Tests viraux :** Influenza A/B, Rhinovirus, Coronavirus, etc.
+- **Démographie :** Quantile d'âge du patient
 
-## Project Structure
+##  Structure du Projet
 
 ```
 covid-detection/
-├── README.md                   # This file
-├── requirements.txt            # Python dependencies
-├── setup.py                   # Package installation
-├── .gitignore                 # Git ignore rules
+├── README.md                   # Documentation (EN)
+├── README_FR.md               # Documentation (FR)
+├── requirements.txt            # Dépendances Python
+├── setup.py                   # Installation du package
+├── .gitignore                 # Règles Git
 │
 ├── data/
-│   ├── raw/                   # Original dataset
+│   ├── raw/                   # Données originales
 │   │   └── dataset.xlsx
-│   ├── processed/             # Processed data and models
-│   └── results/               # Plots and results
+│   ├── processed/             # Données traitées et modèles
+│   └── results/               # Graphiques et résultats
 │
 ├── notebooks/
 │   ├── 01_exploratory_data_analysis.ipynb
 │   └── 02_modeling.ipynb
 │
-├── src/                       # Source code
+├── src/                       # Code source
 │   ├── __init__.py
-│   ├── config.py              # Configuration and constants
-│   ├── data/                  # Data processing
+│   ├── config.py              # Configuration
+│   ├── data/                  # Traitement des données
 │   │   ├── __init__.py
 │   │   └── preprocessing.py
 │   ├── features/              # Feature engineering
 │   │   ├── __init__.py
 │   │   └── engineering.py
-│   ├── models/                # Model training & evaluation
+│   ├── models/                # Entraînement & évaluation
 │   │   ├── __init__.py
 │   │   ├── train.py
 │   │   └── evaluate.py
-│   └── visualization/         # Plotting functions
+│   └── visualization/         # Visualisations
 │       ├── __init__.py
 │       └── plots.py
 │
-├── scripts/                   # Executable scripts
-│   ├── train_model.py         # Training pipeline
-│   └── predict.py             # Prediction script
+├── scripts/                   # Scripts exécutables
+│   ├── train_model.py         # Pipeline d'entraînement
+│   └── predict.py             # Script de prédiction
 │
-└── tests/                     # Unit tests
+└── tests/                     # Tests unitaires
     └── test_preprocessing.py
 ```
 
-## Installation
+##  Installation
 
-### 1. Clone the repository
+### 1. Cloner le repository
 ```bash
 cd "COVID DETECTION"
 ```
 
-### 2. Create a virtual environment (recommended)
+### 2. Créer un environnement virtuel (recommandé)
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Windows : venv\Scripts\activate
 ```
 
-### 3. Install dependencies
+### 3. Installer les dépendances
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Install the package in development mode
+### 4. Installer le package en mode développement
 ```bash
 pip install -e .
 ```
 
-## Usage
+##  Utilisation
 
-### Training a Model
+### Entraîner un Modèle
 
-Run the complete training pipeline:
+Exécuter le pipeline complet d'entraînement :
 
 ```bash
 python scripts/train_model.py
 ```
 
-This will:
-1. Load and preprocess the data
-2. Train multiple models (RandomForest, AdaBoost, SVM, KNN)
-3. Optimize the best model (SVM)
-4. Evaluate performance
-5. Save the trained model and plots
+Ceci va :
+1. Charger et prétraiter les données
+2. Entraîner plusieurs modèles (RandomForest, AdaBoost, SVM, KNN)
+3. Optimiser le meilleur modèle (SVM)
+4. Évaluer la performance
+5. Sauvegarder le modèle entraîné et les graphiques
 
-### Making Predictions
+### Faire des Prédictions
 
-#### From a file:
+#### À partir d'un fichier :
 ```bash
-python scripts/predict.py path/to/data.xlsx --output predictions.csv
+python scripts/predict.py chemin/vers/data.xlsx --output predictions.csv
 ```
 
-#### With custom threshold:
+#### Avec un seuil personnalisé :
 ```bash
-python scripts/predict.py data.xlsx --threshold -1.0 --output results.csv
+python scripts/predict.py data.xlsx --threshold -1.0 --output resultats.csv
 ```
 
-#### From Python code:
+#### Depuis du code Python :
 ```python
 from scripts.predict import predict_single
 
-# Single patient prediction
-result = predict_single(
+# Prédiction pour un patient unique
+resultat = predict_single(
     age_quantile=15,
     blood_features={
         'Leukocytes': -0.09,
@@ -135,116 +138,116 @@ result = predict_single(
     }
 )
 
-print(f"Prediction: {result['prediction']}")
-print(f"Probability: {result['probability_positive']:.2%}")
+print(f"Prédiction : {resultat['prediction']}")
+print(f"Probabilité : {resultat['probability_positive']:.2%}")
 ```
 
-### Using in Jupyter Notebooks
+### Utilisation dans Jupyter Notebooks
 
 ```python
-# Import modules
+# Importer les modules
 from src.data.preprocessing import load_data, preprocessing
 from src.models.train import build_models
 from src.models.evaluate import evaluation
 from src.visualization.plots import plot_target_distribution
 
-# Load data
+# Charger les données
 df = load_data()
 
-# Create visualizations
+# Créer des visualisations
 plot_target_distribution(df, save=True)
 
-# Train models
+# Entraîner des modèles
 models = build_models()
 ```
 
-## Methodology
+##  Méthodologie
 
-### 1. Exploratory Data Analysis (EDA)
-- Missing value analysis (>75% missing for many features)
-- Target distribution (imbalanced: 10% positive)
-- Feature-target relationships
-- Statistical hypothesis testing (t-tests)
+### 1. Analyse Exploratoire des Données (EDA)
+- Analyse des valeurs manquantes (>75% manquant pour beaucoup)
+- Distribution de la cible (déséquilibrée : 10% positif)
+- Relations caractéristique-cible
+- Tests d'hypothèses statistiques (tests t)
 
-### 2. Preprocessing
-- **Feature selection:** Based on missing value patterns
-  - Blood columns: 88-90% missing rate
-  - Viral columns: 75-88% missing rate
-- **Encoding:** positive/detected → 1, negative/not_detected → 0
-- **Imputation:** Drop rows with missing values
-- **Feature engineering:** Create "est malade" (is sick) from viral tests
+### 2. Prétraitement
+- **Sélection de caractéristiques :** Basée sur les motifs de valeurs manquantes
+  - Colonnes sanguines : 88-90% de taux de manquants
+  - Colonnes virales : 75-88% de taux de manquants
+- **Encodage :** positive/detected → 1, negative/not_detected → 0
+- **Imputation :** Suppression des lignes avec valeurs manquantes
+- **Feature engineering :** Création de "est malade" à partir des tests viraux
 
-### 3. Modeling
-- **Models tested:** RandomForest, AdaBoost, SVM, KNN
-- **Best model:** SVM with polynomial features
-- **Pipeline:**
-  - Polynomial features (degree 4)
-  - SelectKBest (56 features)
+### 3. Modélisation
+- **Modèles testés :** RandomForest, AdaBoost, SVM, KNN
+- **Meilleur modèle :** SVM avec caractéristiques polynomiales
+- **Pipeline :**
+  - Caractéristiques polynomiales (degré 4)
+  - SelectKBest (56 caractéristiques)
   - StandardScaler
   - SVM (C=1000, gamma=0.001)
 
-### 4. Evaluation
-- **Metrics:** F1 Score, Recall, Precision
-- **Cross-validation:** 4-fold CV
-- **Threshold tuning:** Adjusted to optimize recall
-- **Learning curves:** Monitor overfitting
+### 4. Évaluation
+- **Métriques :** F1 Score, Recall, Précision
+- **Validation croisée :** 4-fold CV
+- **Ajustement du seuil :** Optimisé pour maximiser le recall
+- **Courbes d'apprentissage :** Surveillance du surapprentissage
 
-## Key Results
+##  Résultats Clés
 
-| Metric | Target | Achieved |
-|--------|--------|----------|
-| F1 Score | ≥ 0.5 | **0.56** (passed) |
-| Recall | ≥ 0.7 | **0.81** (passed) |
-| Precision | - | **0.71** |
+| Métrique | Objectif | Obtenu |
+|----------|----------|--------|
+| F1 Score | ≥ 0.5 | **0.56** |
+| Recall | ≥ 0.7 | **0.81** |
+| Précision | - | **0.71** |
 
-### Feature Importance
-Top predictive features:
+### Importance des Caractéristiques
+Caractéristiques les plus prédictives :
 1. Monocytes
-2. Platelets
-3. Leukocytes
-4. Patient age quantile
-5. Viral test results (engineered feature)
+2. Plaquettes
+3. Leucocytes
+4. Quantile d'âge du patient
+5. Résultats des tests viraux (caractéristique créée)
 
-## Configuration
+##  Configuration
 
-All parameters can be modified in [`src/config.py`](src/config.py):
+Tous les paramètres peuvent être modifiés dans `src/config.py` :
 
 ```python
-# Model parameters
+# Paramètres du modèle
 POLYNOMIAL_DEGREE = 2
 SELECT_K_BEST = 10
 TEST_SIZE = 0.2
 RANDOM_STATE = 42
 
-# Performance targets
+# Objectifs de performance
 TARGET_F1_SCORE = 0.5
 TARGET_RECALL = 0.7
 
-# Decision threshold
+# Seuil de décision
 DECISION_THRESHOLD = -1
 ```
 
-## Development
+##  Développement
 
-### Adding New Features
+### Ajouter de Nouvelles Caractéristiques
 
-1. Add feature engineering functions to `src/features/engineering.py`
-2. Import and use in preprocessing pipeline
-3. Update configuration in `src/config.py`
+1. Ajouter des fonctions de feature engineering à `src/features/engineering.py`
+2. Importer et utiliser dans le pipeline de prétraitement
+3. Mettre à jour la configuration dans `src/config.py`
 
-### Adding New Models
+### Ajouter de Nouveaux Modèles
 
-1. Add model to `build_models()` in `src/models/train.py`
-2. Define hyperparameter grid if needed
-3. Run training pipeline
+1. Ajouter le modèle à `build_models()` dans `src/models/train.py`
+2. Définir la grille d'hyperparamètres si nécessaire
+3. Exécuter le pipeline d'entraînement
 
-### Running Tests
+### Exécuter les Tests
 
 ```bash
 pytest tests/
 ```
 
-## Dependencies
+##  Dépendances
 
 - **numpy** ≥ 1.21.0
 - **pandas** ≥ 1.3.0
@@ -255,32 +258,42 @@ pytest tests/
 - **openpyxl** ≥ 3.0.0
 - **joblib** ≥ 1.0.0
 
-## Contributing
+##  Contribution
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. Forker le repository
+2. Créer une branche de fonctionnalité (`git checkout -b feature/fonctionnalite-geniale`)
+3. Commiter vos modifications (`git commit -m 'Ajouter une fonctionnalité géniale'`)
+4. Pousser vers la branche (`git push origin feature/fonctionnalite-geniale`)
+5. Ouvrir une Pull Request
 
-## License
+Voir [CONTRIBUTING.md](docs/CONTRIBUTING.md) pour plus de détails.
 
-This project is licensed under the MIT License.
+##  Licence
 
-## Authors
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-- emmab-collab - Initial work
+##  Auteurs
 
-## Acknowledgments
+- emmab-collab - Travail initial
 
-- Dataset source: [Kaggle COVID-19 Dataset]
-- Original notebook inspiration
-- scikit-learn documentation
+##  Remerciements
 
-## Contact
+- Source du jeu de données : [Kaggle COVID-19 Dataset]
+- Inspiration du notebook original
+- Documentation scikit-learn
 
-For questions or feedback, please open an issue on GitHub.
+##  Contact
+
+Pour des questions ou des retours, veuillez ouvrir une issue sur GitHub.
+
+##  Documentation Complète
+
+- **[QUICKSTART.md](QUICKSTART.md)** - Guide de démarrage rapide (5 minutes)
+- **[GETTING_STARTED.md](GETTING_STARTED.md)** - Guide de démarrage détaillé
+- **[docs/API.md](docs/API.md)** - Référence complète de l'API
+- **[docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)** - Guide de contribution
+- **[GITHUB_SETUP.md](GITHUB_SETUP.md)** - Configuration GitHub
 
 ---
 
-**Note:** This model is for research and educational purposes only. It should not be used as a substitute for professional medical diagnosis.
+**Note :** Ce modèle est uniquement à des fins de recherche et d'éducation. Il ne doit pas être utilisé comme substitut à un diagnostic médical professionnel.
