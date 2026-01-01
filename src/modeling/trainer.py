@@ -14,11 +14,10 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import make_pipeline
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.preprocessing import PolynomialFeatures, StandardScaler
-from sklearn.model_selection import cross_val_score, RandomizedSearchCV
+from sklearn.model_selection import cross_val_score, RandomizedSearchCV, learning_curve
 from sklearn.metrics import (
     f1_score, recall_score, precision_score, classification_report,
-    confusion_matrix, roc_curve, roc_auc_score, precision_recall_curve,
-    learning_curve
+    confusion_matrix, roc_curve, roc_auc_score, precision_recall_curve
 )
 import joblib
 
