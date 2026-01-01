@@ -41,20 +41,28 @@ covid-detection/
 │   └── results/               # Graphiques et résultats
 │
 ├── notebooks/
-│   ├── 00_quick_start.ipynb
-│   ├── 01_exploratory_data_analysis.ipynb
-│   └── 02_modeling.ipynb
+│   ├── 01_EDA.ipynb           # Analyse exploratoire (avec EDAAnalyzer)
+│   └── 02_Preprocessing_Modeling.ipynb  # Preprocessing & ML (avec classes)
 │
-├── src/                       # Code source
+├── src/                       # Code source (architecture modulaire)
 │   ├── __init__.py
-│   ├── config.py              # Configuration
+│   ├── config.py              # Configuration centralisée
 │   ├── data/                  # Traitement des données
 │   │   ├── __init__.py
 │   │   └── preprocessing.py
 │   ├── features/              # Feature engineering
 │   │   ├── __init__.py
 │   │   └── engineering.py
-│   ├── models/                # Entraînement & évaluation
+│   ├── eda/                   # Classes pour l'analyse exploratoire
+│   │   ├── __init__.py
+│   │   └── analyzer.py        # EDAAnalyzer class
+│   ├── preprocessing/         # Classes pour le preprocessing
+│   │   ├── __init__.py
+│   │   └── preprocessor.py    # DataPreprocessor class
+│   ├── modeling/              # Classes pour le modeling
+│   │   ├── __init__.py
+│   │   └── trainer.py         # ModelTrainer class
+│   ├── models/                # Fonctions d'entraînement & évaluation
 │   │   ├── __init__.py
 │   │   ├── train.py
 │   │   └── evaluate.py
@@ -148,8 +156,47 @@ print(f"Probabilité : {resultat['probability_positive']:.2%}")
 
 ### Using in Jupyter Notebooks
 
+#### Approche Orientée Objet (Recommandée)
+
 ```python
-# Importer les modules
+# Importer les classes
+from src.eda import EDAAnalyzer
+from src.preprocessing import DataPreprocessor
+from src.modeling import ModelTrainer
+from src.data.preprocessing import load_data
+
+# 1. EDA - Analyse exploratoire
+df = load_data()
+eda = EDAAnalyzer(df)
+eda.analyze_shape()
+eda.plot_target_distribution()
+blood_cols, viral_cols = eda.identify_feature_groups()
+significant_features = eda.statistical_tests(blood_cols)
+
+# 2. Preprocessing - Pipeline complet
+preprocessor = DataPreprocessor(df)
+X_train, X_test, y_train, y_test = preprocessor.run_full_pipeline(
+    threshold=0.9,
+    imputation_method='fillna'
+)
+
+# 3. Modeling - Entraînement et évaluation
+trainer = ModelTrainer(X_train, X_test, y_train, y_test)
+results = trainer.train_and_evaluate_all()
+comparison = trainer.get_comparison_dataframe()
+trainer.plot_model_comparison()
+
+# 4. Optimisation
+optimized_model, params, score = trainer.optimize_model(n_iter=50)
+trainer.evaluate_model()
+best_threshold = trainer.tune_threshold()
+trainer.save_model('best_model.pkl')
+```
+
+#### Approche Fonctionnelle (Legacy)
+
+```python
+# Importer les fonctions
 from src.data.preprocessing import load_data, preprocessing
 from src.models.train import build_models
 from src.models.evaluate import evaluation
@@ -167,33 +214,86 @@ models = build_models()
 
 ## Methodology
 
+### Architecture Modulaire
+
+Le projet utilise une architecture orientée objet avec **3 classes principales** :
+
+#### 1. **EDAAnalyzer** (`src/eda/analyzer.py`)
+Classe pour l'analyse exploratoire des données:
+- `analyze_shape()`: Informations sur la structure du dataset
+- `analyze_missing_values()`: Analyse des valeurs manquantes
+- `plot_missing_heatmap()`: Visualisation des NaN
+- `analyze_target()`: Distribution de la cible
+- `identify_feature_groups()`: Identification groupes blood/viral
+- `plot_feature_distributions()`: Distributions des features
+- `compare_distributions_by_target()`: Comparaison positifs vs négatifs
+- `plot_correlation_matrix()`: Matrice de corrélation
+- `statistical_tests()`: Tests t de Student pour features significatives
+- `generate_summary_report()`: Rapport complet
+
+#### 2. **DataPreprocessor** (`src/preprocessing/preprocessor.py`)
+Classe pour le preprocessing complet:
+- `select_features_by_missing_rate()`: Sélection par seuil de NaN
+- `identify_feature_groups()`: Groupes blood et viral
+- `encode_categorical()`: Encodage positif/négatif → 1/0
+- `engineer_features()`: Création feature 'est malade'
+- `impute_missing_values()`: Imputation (fillna/median/dropna)
+- `split_data()`: Split train/test stratifié
+- `run_full_pipeline()`: Pipeline complet automatisé
+- `get_preprocessing_summary()`: Résumé des transformations
+
+#### 3. **ModelTrainer** (`src/modeling/trainer.py`)
+Classe pour l'entraînement et l'évaluation:
+- `build_models()`: Construction de 4 modèles (RF, AdaBoost, SVM, KNN)
+- `train_and_evaluate_all()`: Entraînement et évaluation de tous
+- `get_comparison_dataframe()`: Tableau comparatif
+- `plot_model_comparison()`: Graphiques de comparaison
+- `plot_confusion_matrices()`: Matrices de confusion
+- `optimize_model()`: Optimisation hyperparamètres (RandomizedSearchCV)
+- `evaluate_model()`: Évaluation complète avec visualisations
+- `plot_roc_curve()`: Courbe ROC et AUC
+- `tune_threshold()`: Optimisation du seuil de décision
+- `save_model()`: Sauvegarde du modèle
+- `get_training_summary()`: Résumé des résultats
+
+### Workflow
+
 ### 1. Analyse Exploratoire des Données (EDA)
+Utilisation de **EDAAnalyzer**:
 - Analyse des valeurs manquantes (>75% manquant pour beaucoup)
 - Distribution de la cible (déséquilibrée : 10% positif)
 - Relations caractéristique-cible
 - Tests d'hypothèses statistiques (tests t)
 
 ### 2. Preprocessing
+Utilisation de **DataPreprocessor**:
 - **Sélection de caractéristiques :** Basée sur les motifs de valeurs manquantes
+  - Seuil configurable (défaut: <90% NaN)
   - Colonnes sanguines : 88-90% de taux de manquants
   - Colonnes virales : 75-88% de taux de manquants
 - **Encodage :** positive/detected → 1, negative/not_detected → 0
-- **Imputation :** Suppression des lignes avec valeurs manquantes
 - **Feature engineering :** Création de "est malade" à partir des tests viraux
+- **Imputation :** Configurable (fillna/median/dropna)
+- **Split :** Train/test stratifié automatique
 
 ### 3. Modeling
+Utilisation de **ModelTrainer**:
 - **Modèles testés :** RandomForest, AdaBoost, SVM, KNN
+- **Pipelines automatisés :** PolynomialFeatures → SelectKBest → StandardScaler → Modèle
+- **Comparaison systématique :** Métriques, graphiques, matrices de confusion
 - **Meilleur modèle :** SVM avec caractéristiques polynomiales
-- **Pipeline :**
-  - Caractéristiques polynomiales (degré 4)
-  - SelectKBest (56 caractéristiques)
+- **Optimisation :** RandomizedSearchCV sur grille d'hyperparamètres
+- **Configuration typique :**
+  - Caractéristiques polynomiales (degré 2-4)
+  - SelectKBest (10-56 caractéristiques)
   - StandardScaler
-  - SVM (C=1000, gamma=0.001)
+  - SVM (C=1-1000, gamma=0.001-1)
 
 ### 4. Evaluation
 - **Métriques :** F1 Score, Recall, Précision
 - **Validation croisée :** 4-fold CV
-- **Ajustement du seuil :** Optimisé pour maximiser le recall
+- **Visualisations automatiques :** Confusion matrix, ROC curve, comparaisons
+- **Ajustement du seuil :** Optimisé pour maximiser le recall tout en maintenant F1
 - **Courbes d'apprentissage :** Surveillance du surapprentissage
 
 ## Key Results

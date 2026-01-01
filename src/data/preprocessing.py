@@ -78,7 +78,7 @@ def get_feature_groups(df: pd.DataFrame) -> Tuple[List[str], List[str]]:
     return blood_columns, viral_columns
 
 
-def select_features_by_missing_rate(df: pd.DataFrame) -> pd.DataFrame:
+def select_features_by_missing_rate(df: pd.DataFrame, threshold: float = 0.9) -> pd.DataFrame:
     """
     Select relevant features based on missing value patterns.
 
@@ -86,14 +86,16 @@ def select_features_by_missing_rate(df: pd.DataFrame) -> pd.DataFrame:
     ----------
     df : pd.DataFrame
         Input dataframe
+    threshold : float, optional
+        Maximum allowed missing rate (default: 0.9, i.e., keep features with <90% missing values)
 
     Returns
     -------
     pd.DataFrame
-        Dataframe with selected features (key columns + blood + viral)
+        Dataframe with selected features (columns with missing rate < threshold)
     """
-    blood_columns, viral_columns = get_feature_groups(df)
-    selected_columns = KEY_COLUMNS + blood_columns + viral_columns
+    missing_rate = df.isna().sum() / len(df)
+    selected_columns = list(missing_rate[missing_rate < threshold].index)
 
     return df[selected_columns]
 
