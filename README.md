@@ -44,31 +44,23 @@ covid-detection/
 │   ├── 01_EDA.ipynb           # Analyse exploratoire (avec EDAAnalyzer)
 │   └── 02_Preprocessing_Modeling.ipynb  # Preprocessing & ML (avec classes)
 │
-├── src/                       # Code source (architecture modulaire)
+├── src/                       # Code source (architecture OOP modulaire)
 │   ├── __init__.py
 │   ├── config.py              # Configuration centralisée
-│   ├── data/                  # Traitement des données
-│   │   ├── __init__.py
-│   │   └── preprocessing.py
-│   ├── features/              # Feature engineering
-│   │   ├── __init__.py
-│   │   └── engineering.py
-│   ├── eda/                   # Classes pour l'analyse exploratoire
+│   ├── eda/                   # Analyse exploratoire (classe)
 │   │   ├── __init__.py
 │   │   └── analyzer.py        # EDAAnalyzer class
-│   ├── preprocessing/         # Classes pour le preprocessing
+│   ├── preprocessing/         # Preprocessing (classe)
 │   │   ├── __init__.py
-│   │   └── preprocessor.py    # DataPreprocessor class
-│   ├── modeling/              # Classes pour le modeling
+│   │   ├── preprocessor.py    # DataPreprocessor class
+│   │   └── feature_engineering.py  # Fonctions de feature engineering
+│   ├── modeling/              # Modeling (classe)
 │   │   ├── __init__.py
 │   │   └── trainer.py         # ModelTrainer class
-│   ├── models/                # Fonctions d'entraînement & évaluation
-│   │   ├── __init__.py
-│   │   ├── train.py
-│   │   └── evaluate.py
-│   └── visualization/         # Visualisations
+│   └── utils/                 # Utilitaires partagés
 │       ├── __init__.py
-│       └── plots.py
+│       ├── data_loader.py     # load_data()
+│       └── visualization.py   # Fonctions de visualisation
 │
 ├── scripts/                   # Scripts exécutables
 │   ├── train_model.py         # Pipeline d'entraînement
@@ -163,7 +155,7 @@ print(f"Probabilité : {resultat['probability_positive']:.2%}")
 from src.eda import EDAAnalyzer
 from src.preprocessing import DataPreprocessor
 from src.modeling import ModelTrainer
-from src.data.preprocessing import load_data
+from src.utils import load_data
 
 # 1. EDA - Analyse exploratoire
 df = load_data()
@@ -193,23 +185,18 @@ best_threshold = trainer.tune_threshold()
 trainer.save_model('best_model.pkl')
 ```
 
-#### Approche Fonctionnelle (Legacy)
+#### Utilisation des fonctions utilitaires
 
 ```python
-# Importer les fonctions
-from src.data.preprocessing import load_data, preprocessing
-from src.models.train import build_models
-from src.models.evaluate import evaluation
-from src.visualization.plots import plot_target_distribution
+# Import des utilitaires
+from src.utils import load_data, plot_target_distribution, plot_missing_rate
 
 # Charger les données
 df = load_data()
 
 # Créer des visualisations
 plot_target_distribution(df, save=True)
-
-# Entraîner des modèles
-models = build_models()
+plot_missing_rate(df, top_n=20)
 ```
 
 ## Methodology

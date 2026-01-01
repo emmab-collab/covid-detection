@@ -17,6 +17,7 @@ from ..config import (
     VIRAL_MISSING_RATE_MIN,
     VIRAL_MISSING_RATE_MAX
 )
+from .feature_engineering import feature_engineering as apply_feature_engineering
 
 
 class DataPreprocessor:
@@ -175,12 +176,7 @@ class DataPreprocessor:
 
         # Créer la feature 'est malade' (au moins 1 test viral positif)
         if self.viral_columns:
-            self.df_engineered['est malade'] = (
-                self.df_engineered[self.viral_columns].sum(axis=1) >= 1
-            ).astype(int)
-
-            # Supprimer les colonnes virales d'origine
-            self.df_engineered = self.df_engineered.drop(self.viral_columns, axis=1)
+            self.df_engineered = apply_feature_engineering(self.df_engineered, self.viral_columns)
 
             print(f"Feature 'est malade' créée à partir de {len(self.viral_columns)} tests viraux")
             print(f"\nDistribution 'est malade':")

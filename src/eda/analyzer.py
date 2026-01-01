@@ -10,7 +10,7 @@ import seaborn as sns
 from scipy.stats import ttest_ind
 from typing import List, Tuple, Dict
 
-from ..config import TARGET_FEATURE
+from ..config import TARGET_FEATURE, BLOOD_MISSING_RATE_MIN, BLOOD_MISSING_RATE_MAX, VIRAL_MISSING_RATE_MIN, VIRAL_MISSING_RATE_MAX
 
 
 class EDAAnalyzer:
@@ -155,19 +155,19 @@ class EDAAnalyzer:
         plt.show()
 
     def identify_feature_groups(self,
-                                blood_min: float = 0.88,
-                                blood_max: float = 0.90,
-                                viral_min: float = 0.75,
-                                viral_max: float = 0.88) -> Tuple[List[str], List[str]]:
+                                blood_min: float = None,
+                                blood_max: float = None,
+                                viral_min: float = None,
+                                viral_max: float = None) -> Tuple[List[str], List[str]]:
         """
         Identify blood and viral feature groups based on missing rates.
 
         Parameters
         ----------
-        blood_min, blood_max : float
-            Missing rate range for blood features
-        viral_min, viral_max : float
-            Missing rate range for viral features
+        blood_min, blood_max : float, optional
+            Missing rate range for blood features (default: from config)
+        viral_min, viral_max : float, optional
+            Missing rate range for viral features (default: from config)
 
         Returns
         -------
@@ -176,6 +176,12 @@ class EDAAnalyzer:
         """
         if self.missing_rate is None:
             self.analyze_missing_values()
+
+        # Use config values if not specified
+        blood_min = blood_min or BLOOD_MISSING_RATE_MIN
+        blood_max = blood_max or BLOOD_MISSING_RATE_MAX
+        viral_min = viral_min or VIRAL_MISSING_RATE_MIN
+        viral_max = viral_max or VIRAL_MISSING_RATE_MAX
 
         missing_rate_fraction = self.missing_rate / 100
 
