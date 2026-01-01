@@ -1,10 +1,8 @@
-# Détection COVID-19 à partir de Données Cliniques
+# COVID-19 Detection from Clinical Data
 
 Un projet de machine learning pour prédire l'infection au COVID-19 à partir de données cliniques et d'analyses sanguines.
 
-[English version](README.md) | **Version française**
-
-##  Objectif du Projet
+## Project Objective
 
 Prédire si un patient est infecté par le COVID-19 sur la base des données cliniques disponibles, en atteignant :
 - **F1 Score ≥ 0.5**
@@ -14,19 +12,19 @@ Prédire si un patient est infecté par le COVID-19 sur la base des données cli
 - **F1 Score : 0.56**
 - **Recall : 0.81**
 
-##  Jeu de Données
+## Dataset
 
 - **Échantillons totaux :** 5,644
 - **Caractéristiques :** 111 (initialement)
 - **Cible :** Résultat de l'examen SARS-Cov-2 (positif/négatif)
 - **Distribution des classes :** 10% positif, 90% négatif (déséquilibré)
 
-### Groupes de Caractéristiques
+### Feature Groups
 - **Analyses sanguines :** Hémoglobine, Plaquettes, Leucocytes, Lymphocytes, Monocytes, etc.
 - **Tests viraux :** Influenza A/B, Rhinovirus, Coronavirus, etc.
 - **Démographie :** Quantile d'âge du patient
 
-##  Structure du Projet
+## Project Structure
 
 ```
 covid-detection/
@@ -71,7 +69,7 @@ covid-detection/
     └── test_preprocessing.py
 ```
 
-##  Installation
+## Installation
 
 ### 1. Cloner le repository
 ```bash
@@ -94,9 +92,9 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-##  Utilisation
+## Usage
 
-### Entraîner un Modèle
+### Training a Model
 
 Exécuter le pipeline complet d'entraînement :
 
@@ -111,7 +109,7 @@ Ceci va :
 4. Évaluer la performance
 5. Sauvegarder le modèle entraîné et les graphiques
 
-### Faire des Prédictions
+### Making Predictions
 
 #### À partir d'un fichier :
 ```bash
@@ -142,7 +140,7 @@ print(f"Prédiction : {resultat['prediction']}")
 print(f"Probabilité : {resultat['probability_positive']:.2%}")
 ```
 
-### Utilisation dans Jupyter Notebooks
+### Using in Jupyter Notebooks
 
 ```python
 # Importer les modules
@@ -161,7 +159,7 @@ plot_target_distribution(df, save=True)
 models = build_models()
 ```
 
-##  Méthodologie
+## Methodology
 
 ### 1. Analyse Exploratoire des Données (EDA)
 - Analyse des valeurs manquantes (>75% manquant pour beaucoup)
@@ -169,7 +167,7 @@ models = build_models()
 - Relations caractéristique-cible
 - Tests d'hypothèses statistiques (tests t)
 
-### 2. Prétraitement
+### 2. Preprocessing
 - **Sélection de caractéristiques :** Basée sur les motifs de valeurs manquantes
   - Colonnes sanguines : 88-90% de taux de manquants
   - Colonnes virales : 75-88% de taux de manquants
@@ -177,7 +175,7 @@ models = build_models()
 - **Imputation :** Suppression des lignes avec valeurs manquantes
 - **Feature engineering :** Création de "est malade" à partir des tests viraux
 
-### 3. Modélisation
+### 3. Modeling
 - **Modèles testés :** RandomForest, AdaBoost, SVM, KNN
 - **Meilleur modèle :** SVM avec caractéristiques polynomiales
 - **Pipeline :**
@@ -186,13 +184,13 @@ models = build_models()
   - StandardScaler
   - SVM (C=1000, gamma=0.001)
 
-### 4. Évaluation
+### 4. Evaluation
 - **Métriques :** F1 Score, Recall, Précision
 - **Validation croisée :** 4-fold CV
 - **Ajustement du seuil :** Optimisé pour maximiser le recall
 - **Courbes d'apprentissage :** Surveillance du surapprentissage
 
-##  Résultats Clés
+## Key Results
 
 | Métrique | Objectif | Obtenu |
 |----------|----------|--------|
@@ -200,7 +198,7 @@ models = build_models()
 | Recall | ≥ 0.7 | **0.81** |
 | Précision | - | **0.71** |
 
-### Importance des Caractéristiques
+### Feature Importance
 Caractéristiques les plus prédictives :
 1. Monocytes
 2. Plaquettes
@@ -208,7 +206,7 @@ Caractéristiques les plus prédictives :
 4. Quantile d'âge du patient
 5. Résultats des tests viraux (caractéristique créée)
 
-##  Configuration
+## Configuration
 
 Tous les paramètres peuvent être modifiés dans `src/config.py` :
 
@@ -227,27 +225,27 @@ TARGET_RECALL = 0.7
 DECISION_THRESHOLD = -1
 ```
 
-##  Développement
+## Development
 
-### Ajouter de Nouvelles Caractéristiques
+### Adding New Features
 
 1. Ajouter des fonctions de feature engineering à `src/features/engineering.py`
 2. Importer et utiliser dans le pipeline de prétraitement
 3. Mettre à jour la configuration dans `src/config.py`
 
-### Ajouter de Nouveaux Modèles
+### Adding New Models
 
 1. Ajouter le modèle à `build_models()` dans `src/models/train.py`
 2. Définir la grille d'hyperparamètres si nécessaire
 3. Exécuter le pipeline d'entraînement
 
-### Exécuter les Tests
+### Running Tests
 
 ```bash
 pytest tests/
 ```
 
-##  Dépendances
+## Dependencies
 
 - **numpy** ≥ 1.21.0
 - **pandas** ≥ 1.3.0
@@ -258,7 +256,7 @@ pytest tests/
 - **openpyxl** ≥ 3.0.0
 - **joblib** ≥ 1.0.0
 
-##  Contribution
+## Contributing
 
 1. Forker le repository
 2. Créer une branche de fonctionnalité (`git checkout -b feature/fonctionnalite-geniale`)
@@ -268,31 +266,23 @@ pytest tests/
 
 Voir [CONTRIBUTING.md](docs/CONTRIBUTING.md) pour plus de détails.
 
-##  Licence
+## License
 
 Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-##  Auteurs
+## Authors
 
 - emmab-collab - Travail initial
 
-##  Remerciements
+## Acknowledgments
 
 - Source du jeu de données : [Kaggle COVID-19 Dataset]
 - Inspiration du notebook original
 - Documentation scikit-learn
 
-##  Contact
+## Contact
 
 Pour des questions ou des retours, veuillez ouvrir une issue sur GitHub.
-
-##  Documentation Complète
-
-- **[QUICKSTART.md](QUICKSTART.md)** - Guide de démarrage rapide (5 minutes)
-- **[GETTING_STARTED.md](GETTING_STARTED.md)** - Guide de démarrage détaillé
-- **[docs/API.md](docs/API.md)** - Référence complète de l'API
-- **[docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)** - Guide de contribution
-- **[GITHUB_SETUP.md](GITHUB_SETUP.md)** - Configuration GitHub
 
 ---
 
