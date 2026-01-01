@@ -2,17 +2,17 @@
 
 A machine learning project to predict COVID-19 infection from clinical and blood test data.
 
-## 🎯 Project Objective
+## Project Objective
 
 Predict whether a patient is infected with COVID-19 based on available clinical data, achieving:
 - **F1 Score ≥ 0.5**
 - **Recall ≥ 0.7**
 
 **Current Performance:**
-- ✅ **F1 Score: 0.56**
-- ✅ **Recall: 0.81**
+- **F1 Score: 0.56**
+- **Recall: 0.81**
 
-## 📊 Dataset
+## Dataset
 
 - **Total samples:** 5,644
 - **Features:** 111 (originally)
@@ -24,7 +24,7 @@ Predict whether a patient is infected with COVID-19 based on available clinical 
 - **Viral tests:** Influenza A/B, Rhinovirus, Coronavirus, etc.
 - **Demographics:** Patient age quantile
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 covid-detection/
@@ -68,7 +68,7 @@ covid-detection/
     └── test_preprocessing.py
 ```
 
-## 🚀 Installation
+## Installation
 
 ### 1. Clone the repository
 ```bash
@@ -91,7 +91,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-## 💻 Usage
+## Usage
 
 ### Training a Model
 
@@ -158,7 +158,7 @@ plot_target_distribution(df, save=True)
 models = build_models()
 ```
 
-## 📈 Methodology
+## Methodology
 
 ### 1. Exploratory Data Analysis (EDA)
 - Missing value analysis (>75% missing for many features)
@@ -189,12 +189,12 @@ models = build_models()
 - **Threshold tuning:** Adjusted to optimize recall
 - **Learning curves:** Monitor overfitting
 
-## 📊 Key Results
+## Key Results
 
 | Metric | Target | Achieved |
 |--------|--------|----------|
-| F1 Score | ≥ 0.5 | **0.56** ✅ |
-| Recall | ≥ 0.7 | **0.81** ✅ |
+| F1 Score | ≥ 0.5 | **0.56** (passed) |
+| Recall | ≥ 0.7 | **0.81** (passed) |
 | Precision | - | **0.71** |
 
 ### Feature Importance
@@ -205,7 +205,7 @@ Top predictive features:
 4. Patient age quantile
 5. Viral test results (engineered feature)
 
-## 🔧 Configuration
+## Configuration
 
 All parameters can be modified in [`src/config.py`](src/config.py):
 
@@ -224,7 +224,7 @@ TARGET_RECALL = 0.7
 DECISION_THRESHOLD = -1
 ```
 
-## 📝 Development
+## Development
 
 ### Adding New Features
 
@@ -244,7 +244,7 @@ DECISION_THRESHOLD = -1
 pytest tests/
 ```
 
-## 📚 Dependencies
+## Dependencies
 
 - **numpy** ≥ 1.21.0
 - **pandas** ≥ 1.3.0
@@ -255,7 +255,7 @@ pytest tests/
 - **openpyxl** ≥ 3.0.0
 - **joblib** ≥ 1.0.0
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -263,21 +263,21 @@ pytest tests/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
-## 👥 Authors
+## Authors
 
-- Your Name - Initial work
+- emmab-collab - Initial work
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Dataset source: [Kaggle COVID-19 Dataset]
 - Original notebook inspiration
 - scikit-learn documentation
 
-## 📧 Contact
+## Contact
 
 For questions or feedback, please open an issue on GitHub.
 

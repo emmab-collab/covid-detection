@@ -4,17 +4,17 @@ Un projet de machine learning pour prédire l'infection au COVID-19 à partir de
 
 [English version](README.md) | **Version française**
 
-## 🎯 Objectif du Projet
+##  Objectif du Projet
 
 Prédire si un patient est infecté par le COVID-19 sur la base des données cliniques disponibles, en atteignant :
 - **F1 Score ≥ 0.5**
 - **Recall ≥ 0.7**
 
 **Performance actuelle :**
-- ✅ **F1 Score : 0.56**
-- ✅ **Recall : 0.81**
+- **F1 Score : 0.56**
+- **Recall : 0.81**
 
-## 📊 Jeu de Données
+##  Jeu de Données
 
 - **Échantillons totaux :** 5,644
 - **Caractéristiques :** 111 (initialement)
@@ -26,7 +26,7 @@ Prédire si un patient est infecté par le COVID-19 sur la base des données cli
 - **Tests viraux :** Influenza A/B, Rhinovirus, Coronavirus, etc.
 - **Démographie :** Quantile d'âge du patient
 
-## 🏗️ Structure du Projet
+##  Structure du Projet
 
 ```
 covid-detection/
@@ -71,7 +71,7 @@ covid-detection/
     └── test_preprocessing.py
 ```
 
-## 🚀 Installation
+##  Installation
 
 ### 1. Cloner le repository
 ```bash
@@ -94,7 +94,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-## 💻 Utilisation
+##  Utilisation
 
 ### Entraîner un Modèle
 
@@ -161,7 +161,7 @@ plot_target_distribution(df, save=True)
 models = build_models()
 ```
 
-## 📈 Méthodologie
+##  Méthodologie
 
 ### 1. Analyse Exploratoire des Données (EDA)
 - Analyse des valeurs manquantes (>75% manquant pour beaucoup)
@@ -192,12 +192,12 @@ models = build_models()
 - **Ajustement du seuil :** Optimisé pour maximiser le recall
 - **Courbes d'apprentissage :** Surveillance du surapprentissage
 
-## 📊 Résultats Clés
+##  Résultats Clés
 
 | Métrique | Objectif | Obtenu |
 |----------|----------|--------|
-| F1 Score | ≥ 0.5 | **0.56** ✅ |
-| Recall | ≥ 0.7 | **0.81** ✅ |
+| F1 Score | ≥ 0.5 | **0.56** |
+| Recall | ≥ 0.7 | **0.81** |
 | Précision | - | **0.71** |
 
 ### Importance des Caractéristiques
@@ -208,7 +208,7 @@ Caractéristiques les plus prédictives :
 4. Quantile d'âge du patient
 5. Résultats des tests viraux (caractéristique créée)
 
-## 🔧 Configuration
+##  Configuration
 
 Tous les paramètres peuvent être modifiés dans `src/config.py` :
 
@@ -227,7 +227,7 @@ TARGET_RECALL = 0.7
 DECISION_THRESHOLD = -1
 ```
 
-## 📝 Développement
+##  Développement
 
 ### Ajouter de Nouvelles Caractéristiques
 
@@ -247,7 +247,7 @@ DECISION_THRESHOLD = -1
 pytest tests/
 ```
 
-## 📚 Dépendances
+##  Dépendances
 
 - **numpy** ≥ 1.21.0
 - **pandas** ≥ 1.3.0
@@ -258,7 +258,7 @@ pytest tests/
 - **openpyxl** ≥ 3.0.0
 - **joblib** ≥ 1.0.0
 
-## 🤝 Contribution
+##  Contribution
 
 1. Forker le repository
 2. Créer une branche de fonctionnalité (`git checkout -b feature/fonctionnalite-geniale`)
@@ -268,25 +268,25 @@ pytest tests/
 
 Voir [CONTRIBUTING.md](docs/CONTRIBUTING.md) pour plus de détails.
 
-## 📄 Licence
+##  Licence
 
 Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-## 👥 Auteurs
+##  Auteurs
 
-- Votre Nom - Travail initial
+- emmab-collab - Travail initial
 
-## 🙏 Remerciements
+##  Remerciements
 
 - Source du jeu de données : [Kaggle COVID-19 Dataset]
 - Inspiration du notebook original
 - Documentation scikit-learn
 
-## 📧 Contact
+##  Contact
 
 Pour des questions ou des retours, veuillez ouvrir une issue sur GitHub.
 
-## 📖 Documentation Complète
+##  Documentation Complète
 
 - **[QUICKSTART.md](QUICKSTART.md)** - Guide de démarrage rapide (5 minutes)
 - **[GETTING_STARTED.md](GETTING_STARTED.md)** - Guide de démarrage détaillé

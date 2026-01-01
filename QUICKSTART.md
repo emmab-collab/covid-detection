@@ -2,13 +2,13 @@
 
 Get started with COVID-19 Detection in 5 minutes!
 
-## 📋 Prerequisites
+##  Prerequisites
 
 - Python 3.8 or higher
 - pip package manager
 - (Optional) Virtual environment tool
 
-## ⚡ Quick Setup
+##  Quick Setup
 
 ### 1. Navigate to Project Directory
 
@@ -28,7 +28,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-## 🎯 Three Ways to Use This Package
+##  Three Ways to Use This Package
 
 ### Option 1: Command Line Scripts (Easiest)
 
@@ -109,19 +109,19 @@ print(f"F1 Score: {metrics['f1_score']:.3f}")
 save_model(best_model, 'my_model.pkl')
 ```
 
-## 📊 Expected Results
+##  Expected Results
 
 After training, you should see:
 
 ```
 Final Results:
-  F1 Score:  0.56 ✅ (Target: ≥0.5)
-  Recall:    0.81 ✅ (Target: ≥0.7)
+  F1 Score:  0.56 (Target: ≥0.5)
+  Recall:    0.81 (Target: ≥0.7)
   Precision: 0.71
   AUC:       0.XX
 ```
 
-## 📁 What Gets Created
+##  What Gets Created
 
 After running the training script:
 
@@ -136,7 +136,7 @@ data/
     └── target_distribution.png
 ```
 
-## 🔧 Common Tasks
+##  Common Tasks
 
 ### Change Model Parameters
 
@@ -198,7 +198,7 @@ plot_feature_vs_target(
 )
 ```
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### Import Errors
 
@@ -248,7 +248,7 @@ export PYTHONPATH="${PYTHONPATH}:/path/to/COVID DETECTION"
 - Optimize different model
 - Add more features
 
-## 📚 Next Steps
+##  Next Steps
 
 1. **Explore the notebooks:**
    - `01_exploratory_data_analysis.ipynb` - Deep dive into data
@@ -269,7 +269,7 @@ export PYTHONPATH="${PYTHONPATH}:/path/to/COVID DETECTION"
    - Suggest features
    - Submit improvements
 
-## 💡 Tips
+##  Tips
 
 - **Always use `RANDOM_STATE`** for reproducible results
 - **Save your models** before experimenting
@@ -277,7 +277,7 @@ export PYTHONPATH="${PYTHONPATH}:/path/to/COVID DETECTION"
 - **Document** custom features you add
 - **Test** on a subset before full training
 
-## 🎉 Success!
+##  Success!
 
 You're now ready to use the COVID-19 Detection package!
 
@@ -285,4 +285,4 @@ For detailed documentation, see [README.md](README.md).
 
 For questions, open an issue on GitHub.
 
-Happy coding! 🚀
+Happy coding! 

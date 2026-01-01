@@ -4,8 +4,8 @@ setup(
     name="covid-detection",
     version="0.1.0",
     description="Machine Learning model for COVID-19 detection based on clinical data",
-    author="Your Name",
-    author_email="your.email@example.com",
+    author="emmab-collab",
+    author_email="",
     packages=find_packages(),
     install_requires=[
         "numpy>=1.21.0",
