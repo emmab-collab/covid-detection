@@ -1,6 +1,20 @@
 """
 Preprocessing module.
 """
-from .preprocessor import DataPreprocessor
+from .preprocessor import (
+    create_subsets,
+    encodage,
+    feature_engineering,
+    imputation,
+    preprocessing,
+    prepare_data
+)
 
-__all__ = ['DataPreprocessor']
+__all__ = [
+    'create_subsets',
+    'encodage',
+    'feature_engineering',
+    'imputation',
+    'preprocessing',
+    'prepare_data'
+]
